@@ -29,9 +29,13 @@ class keepalived (
   $service_hasstatus = $::keepalived::params::service_hasstatus,
   $service_restart   = $::keepalived::params::service_restart,
   $package_ensure    = 'installed',
+  Optional[Array[String]] $package_install_options = undef,
 ) inherits ::keepalived::params {
 
-  package { $package: ensure => $package_ensure }
+  package { $package: 
+    ensure => $package_ensure,
+    install_options => $package_install_options,
+  }
 
   service { $service:
     ensure    => $service_ensure,
